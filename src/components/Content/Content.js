@@ -1,8 +1,8 @@
-import ClassName from 'models/classname';
+// import ClassName from 'models/classname';
 
 // import styles from './Content.module.scss';
 
-const Content = ({ children, className }) => {
+const Content = ({ children }) => {
   // const contentClassName = new ClassName(styles.content);
 
   // contentClassName.addIf(className, className);

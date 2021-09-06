@@ -1,10 +1,10 @@
 import Link from 'next/link';
 
-import ClassName from 'models/classname';
+// import ClassName from 'models/classname';
 
 // import styles from './Breadcrumbs.module.scss';
 
-const Breadcrumbs = ({ className, breadcrumbs }) => {
+const Breadcrumbs = ({ breadcrumbs }) => {
   // const breadcrumbsClassName = new ClassName(styles.breadcrumbs);
 
   // breadcrumbsClassName.addIf(className, className);

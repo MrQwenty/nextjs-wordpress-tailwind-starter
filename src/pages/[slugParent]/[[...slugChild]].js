@@ -15,8 +15,6 @@ import Container from 'components/Container';
 import FeaturedImage from 'components/FeaturedImage';
 import Breadcrumbs from 'components/Breadcrumbs';
 
-// import styles from 'styles/pages/Page.module.scss';
-
 export default function Page({ page, breadcrumbs }) {
   const { title, metaTitle, description, slug, content, featuredImage, children } = page;
 
@@ -77,10 +75,10 @@ export default function Page({ page, breadcrumbs }) {
         </Section>
 
         {hasChildren && (
-          <Section className={styles.sectionChildren}>
+          <Section className="">
             <Container>
               <aside>
-                <p className={styles.childrenHeader}>
+                <p className="">
                   <strong>{title}</strong>
                 </p>
                 <ul>
