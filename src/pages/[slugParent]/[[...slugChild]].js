@@ -15,6 +15,8 @@ import Container from 'components/Container';
 import FeaturedImage from 'components/FeaturedImage';
 import Breadcrumbs from 'components/Breadcrumbs';
 
+import styles from 'styles/pages/Page.module.scss';
+
 export default function Page({ page, breadcrumbs }) {
   const { title, metaTitle, description, slug, content, featuredImage, children } = page;
 
@@ -59,26 +61,28 @@ export default function Page({ page, breadcrumbs }) {
             dangerouslySetInnerHTML={featuredImage.caption}
           />
         )}
-        <h1 className="">{title}</h1>
+        {console.log({ title })};<h1 className={styles.title}>{title}</h1>
       </Header>
 
       <Content>
         <Section>
           <Container>
             <div
-              className=""
+              className={styles.content}
               dangerouslySetInnerHTML={{
                 __html: content,
               }}
             />
+
+            <div>heyyyyy</div>
           </Container>
         </Section>
 
         {hasChildren && (
-          <Section className="">
+          <Section className={styles.sectionChildren}>
             <Container>
               <aside>
-                <p className="">
+                <p className={styles.childrenHeader}>
                   <strong>{title}</strong>
                 </p>
                 <ul>
@@ -124,7 +128,7 @@ export async function getStaticProps({ params = {} } = {}) {
   // our trail
 
   const { pages } = await getAllPages();
-
+  console.log(pages);
   const breadcrumbs = getBreadcrumbsByUri(pageUri, pages);
 
   return {
@@ -154,7 +158,7 @@ export async function getStaticPaths() {
   });
 
   return {
-    paths,
+    paths: paths.filter(({ params }) => typeof params.slugParent === 'string'),
     fallback: false,
   };
 }

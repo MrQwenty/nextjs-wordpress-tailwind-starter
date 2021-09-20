@@ -44,6 +44,11 @@ export const QUERY_ALL_PAGES = gql`
           slug
           title
           uri
+          introduction {
+            header
+            subHeader
+            videoUrl
+          }
         }
       }
     }
@@ -92,6 +97,11 @@ export const QUERY_PAGE_BY_URI = gql`
       slug
       title
       uri
+      introduction {
+        header
+        subHeader
+        videoUrl
+      }
     }
   }
 `;

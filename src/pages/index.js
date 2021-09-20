@@ -1,5 +1,6 @@
 import useSite from 'hooks/use-site';
 import { getPaginatedPosts } from 'lib/posts';
+import { getPageByUri } from 'lib/pages';
 import { WebsiteJsonLd } from 'lib/json-ld';
 
 import Layout from 'components/Layout';
@@ -11,9 +12,10 @@ import Pagination from 'components/Pagination';
 
 // import styles from 'styles/pages/Home.module.scss';
 
-export default function Home({ posts, pagination }) {
+export default function Home({ posts, pagination, introduction }) {
   const { metadata = {} } = useSite();
   const { title, description } = metadata;
+  const { header, subHeader } = introduction;
 
   return (
     <Layout>
@@ -33,7 +35,19 @@ export default function Home({ posts, pagination }) {
           }}
         />
       </Header>
+      {/* <div
+        dangerouslySetInnerHTML={{
+          __html: content,
+        }}
+      /> */}
 
+      <div>{header}</div>
+      <div>{subHeader}</div>
+      <div
+        dangerouslySetInnerHTML={{
+          __html: introduction.oEmbed.html,
+        }}
+      />
       <Section>
         <Container>
           <h2 className="">Posts</h2>
@@ -59,15 +73,28 @@ export default function Home({ posts, pagination }) {
     </Layout>
   );
 }
-
 export async function getStaticProps() {
   const { posts, pagination } = await getPaginatedPosts();
+  let pageUri = '/';
+  const { page } = await getPageByUri(pageUri);
+
+  let oEmbed;
+
+  if (page?.introduction?.videoUrl) {
+    oEmbed = await fetch(`https://www.youtube.com/oembed?url=${page.introduction.videoUrl}`);
+    oEmbed = await oEmbed.json();
+  }
+  // console.log(page);
   return {
     props: {
       posts,
       pagination: {
         ...pagination,
         basePath: '/posts',
+      },
+      introduction: {
+        ...page.introduction,
+        oEmbed,
       },
     },
   };
